@@ -1,19 +1,19 @@
 import React, { useState } from "react";
 
-export default function ChatRequest({onSubmit}) {
-    const [question,setQuestion] = useState("");
+export default function ChatRequest({ onSubmit }) {
+  const [question, setQuestion] = useState("");
   const handelSubmit = (e) => {
     e.preventDefault();
-    if(question.trim()) {
-        onSubmit(question);
-        setQuestion("");
+    if (question.trim()) {
+      onSubmit(question);
+      setQuestion("");
     }
   };
   return (
     <div className="container my-4">
-      <div onSubmit={handelSubmit}>
-        <div class="form-group">
-          <label htmlFor="question" class="form-label">
+      <form onSubmit={handelSubmit}>
+        <div className="form-group">
+          <label htmlFor="question" className="form-label">
             Ask a Question
           </label>
           <input
@@ -27,10 +27,9 @@ export default function ChatRequest({onSubmit}) {
           />
         </div>
         <button type="submit" className="btn btn-primary mt-2">
-            Submit
-
+          Submit
         </button>
-      </div>
+      </form>
     </div>
   );
 }
