@@ -1,11 +1,13 @@
 import React from "react";
-import { marked } from "marked"; // Install marked using `npm install marked`
+import { marked } from "marked";
+import DOMPurify from "dompurify";
 
 export default function ChatResponse({ response }) {
   if (!response) {
     return null;
   }
   const { candidates, usageMetadata, modelVersion } = response;
+
   return (
     <div className="container my-4">
       <h3>Response</h3>
@@ -17,26 +19,32 @@ export default function ChatResponse({ response }) {
             <div
               className="card-text"
               dangerouslySetInnerHTML={{
-                __html: marked(candidate.content.parts[0].text),
+                __html: DOMPurify.sanitize(
+                  marked(candidate.content.parts[0].text)
+                ),
               }}
             />
             <h6>Citations:</h6>
-            <ul>
-              {candidate?.citationMetadata?.citationSources.map(
-                (source, idx) => (
-                  <li key={idx}>
-                    <a
-                      href={source.uri}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                    >
-                      {source.uri}
-                    </a>{" "}
-                    (Indexes: {source.startIndex}-{source.endIndex})
-                  </li>
-                )
-              )}
-            </ul>
+            {candidate?.citationMetadata?.citationSources?.length > 0 ? (
+              <ul>
+                {candidate.citationMetadata.citationSources.map(
+                  (source, idx) => (
+                    <li key={idx}>
+                      <a
+                        href={source.uri}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                      >
+                        {source.uri}
+                      </a>{" "}
+                      (Indexes: {source.startIndex}-{source.endIndex})
+                    </li>
+                  )
+                )}
+              </ul>
+            ) : (
+              <p>No citations available.</p>
+            )}
           </div>
         </div>
       ))}
