@@ -7,11 +7,9 @@ function App() {
   const [count, setCount] = useState(0)
 
   return (
-    <>
-      <button type="button" class="btn btn-primary">
-        Primary
-      </button>
-    </>
+    <div className='bg-primary text-center text-capitalize text-white'>
+      <h1>gemini ai chat bot</h1>
+    </div>
   );
 }
 
