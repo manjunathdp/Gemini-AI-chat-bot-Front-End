@@ -28,7 +28,7 @@ function App() {
         </header>
         <div>
           <ChatRequest onSubmit={handelQuestionSubmit}/>
-          <ChatResponse />
+          <ChatResponse response ={response} />
         </div>
       </div>
     
