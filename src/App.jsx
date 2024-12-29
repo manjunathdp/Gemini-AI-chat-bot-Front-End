@@ -6,6 +6,19 @@ import ChatResponse from './components/ChatResponse';
 
 function App() {
   const [count, setCount] = useState(0)
+  count [response, setResponse] = useState(null);
+  const [loading, setLoading] = useState(false);
+  const handelQuestionSubmit = async (question) => {
+    setLoading(true);
+    setResponse(null);
+    try{
+      //await
+    } catch(error) {
+      alert("Failed to get response")
+    } finally {
+      setLoading(false);
+    }
+  }
 
   return (
     
@@ -14,7 +27,7 @@ function App() {
           <h1>gemini ai chat bot</h1>
         </header>
         <div>
-          <ChatRequest />
+          <ChatRequest onSubmit={handelQuestionSubmit}/>
           <ChatResponse />
         </div>
       </div>
